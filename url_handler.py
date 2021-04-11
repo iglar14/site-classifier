@@ -9,7 +9,6 @@ def handle_url(url):
     df_trained = pd.read_csv('train_server.csv')
     cols = ['description','tel', 'address', 'ftl', 'sc', 'ads', 'cart', 'sign', 'login', 'ar2k', 'ln20k', 'cloud', 'target']
     url_list = url.split()
-    print(url_list)
     parsed_list = []
     is_df_created = False
     unparsed_list = []
