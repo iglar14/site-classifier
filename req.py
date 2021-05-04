@@ -13,6 +13,10 @@ def get_actual_user_agent():
     return req.text[start:start + end]
 
 
+def prepare_domain_url(url):
+    return prepare_url(get_main_page_url(url))
+
+
 def prepare_url(url):
     dotscount = list(find_all('.', url))
     if len(dotscount) > 2:
@@ -33,7 +37,6 @@ def parse(url): #get content of page
     #user_agent = get_actual_user_agent()
     user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36'
     try:
-        url = prepare_url(get_main_page_url(url))
         req = requests.get(url, headers={'User-Agent':user_agent}, timeout = 10)
     except Exception:
         return 202

@@ -162,9 +162,9 @@ def form_query_to_model(url, string): # form ['description','tel', 'address',
                                  #       'sign', 'login', 'ar2k', 'ln20k'] + word cloud
     if not string:
         return 203
-    alexa_aboutus_ranks = get_ar_au(string)
+    alexa_rank, aboutus_rank = get_ar_au(url)
     return [is_description(string), is_tel(string), is_address(string), 
             is_ftl(string), get_sc(string), is_ads(string), is_cart(string),
-            is_signin(string), is_login(string), alexa_aboutus_ranks[0], alexa_aboutus_ranks[1],
+            is_signin(string), is_login(string), alexa_rank, aboutus_rank,
             form_cloud_of_words(string), -1
             ]

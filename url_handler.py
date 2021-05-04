@@ -1,4 +1,4 @@
-from req import parse
+from req import parse, prepare_domain_url
 from preparation import form_query_to_model
 import pandas as pd
 from classifier import train_and_predict
@@ -16,7 +16,7 @@ def handle_url(url):
     if len(url_list) > 5:
         return get_error_encode(204)
     for i in range(len(url_list)):
-        content = parse(url_list[i])
+        content = parse(prepare_domain_url(url_list[i]))
         if type(content) is str:
             query = form_query_to_model(url_list[i], content)
             parsed_list.append(url_list[i]) 
