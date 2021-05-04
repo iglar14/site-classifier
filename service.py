@@ -1,3 +1,7 @@
+import json
+import pickle
+
+
 ERRORS = {
     200: 'OK',
     201: 'Cannot load page',
@@ -8,22 +12,21 @@ ERRORS = {
     }
 
 
-import json
-import pickle
-
-
-def save_to_json(dictionary, filename): # serialize data into file:
+def save_to_json(dictionary, filename):  # serialize data into file:
     json.dump(dictionary, open(filename + ".json", 'w'))
 
-def load_from_json(filename): # read data from file:
+
+def load_from_json(filename):  # read data from file:
     return json.load(open(filename + ".json"))
 
-def save_to_txt(mlist, filename): # save list to txt file
+
+def save_to_txt(mlist, filename):  # save list to txt file
     with open(filename, 'wb') as fp:
         pickle.dump(mlist, fp)
 
-def load_from_txt(filename): # load list from txt file
-    with open (filename, 'rb') as fp:
+
+def load_from_txt(filename):  # load list from txt file
+    with open(filename, 'rb') as fp:
         return pickle.load(fp)
 
 
@@ -34,6 +37,7 @@ def find_all(p, s):
         yield i
         i = s.find(p, i+1)
 
+
 def get_error_encode(num):
     try:
         res = ERRORS[num]
@@ -41,10 +45,12 @@ def get_error_encode(num):
     except Exception:
         return 'Unknown code'
 
+
 def get_string_after_key(string, key):
     return string[string.find(key)+len(key):]
 
+
 def delete_special_symbols(string):
     f = [string]
-    f = [x.replace('\n','').replace('&amp;','').replace('|','').replace('-','').replace('?','').replace('\t','').replace('&gt','') for x in f]
+    f = [x.replace('\n', '').replace('&amp;', '').replace('|', '').replace('-','').replace('?','').replace('\t','').replace('&gt','') for x in f]
     return f[0]

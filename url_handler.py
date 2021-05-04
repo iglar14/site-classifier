@@ -7,7 +7,7 @@ from service import get_error_encode
 
 def handle_url(url):
     df_trained = pd.read_csv('train_server.csv')
-    cols = ['description','tel', 'address', 'ftl', 'sc', 'ads', 'cart', 'sign', 'login', 'ar2k', 'ln20k', 'cloud', 'target']
+    cols = ['description', 'tel', 'address', 'ftl', 'sc', 'ads', 'cart', 'sign', 'login', 'ar2k', 'ln20k', 'cloud', 'target']
     url_list = url.split()
     parsed_list = []
     is_df_created = False
@@ -21,7 +21,7 @@ def handle_url(url):
             query = form_query_to_model(url_list[i], content)
             parsed_list.append(url_list[i]) 
             if not is_df_created:
-                df_pred = pd.DataFrame([query], columns = cols, copy=False)
+                df_pred = pd.DataFrame([query], columns=cols, copy=False)
                 is_df_created = True
             else:
                 df_pred.loc[len(df_pred)] = query

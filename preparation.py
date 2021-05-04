@@ -1,19 +1,18 @@
+from service import find_all, delete_special_symbols
+from req import get_ar_au
 
 ## ['description','tel', 'address', 'ftl', 'sc', 'ads', 'cart', 'sign', 'login', 'ar2k', 'ln20k'] + word cloud
 ## 
 SIZE_MAX = 3200000
 
-from service import find_all, load_from_json, load_from_txt
-from req import get_ar_au
-from service import delete_special_symbols
-
-stopwords = load_from_txt('stopwords.txt')
 
 def get_page_size(string):
     return len(string)
 
+
 def get_norm_size(string):
-    return round(GetPageSize(string)/SIZE_MAX, 3)
+    return round(get_page_size(string)/SIZE_MAX, 3)
+
 
 def is_description(string):
     try:
@@ -24,6 +23,7 @@ def is_description(string):
     except AttributeError:
         return 0
 
+
 def is_ftl(string):
     try:
         if string.find('featured</h4>') != -1 and string.find('trending</h4>') != -1 and string.find('latest</h4>') != -1 or string.find('no more posts') != -1:
@@ -31,6 +31,7 @@ def is_ftl(string):
         return 0
     except AttributeError:
         return 0
+
 
 def is_cart(string):
     try:
@@ -40,6 +41,7 @@ def is_cart(string):
     except AttributeError:
         return 0
 
+
 def is_signin(string):
     try:
         if string.find('sign in') != -1:
@@ -47,6 +49,7 @@ def is_signin(string):
         return 0
     except AttributeError:
         return 0
+
 
 def is_login(string):
     try:
@@ -65,20 +68,23 @@ def get_title(string):
         return ''
     if (start == -1) or (end == -1):
         return ''
-    return delete_special_symbols(string[start+7:end])
+    return delete_special_symbols(string[start + 7:end])
+
 
 def get_title_h(string, num): #find titles h1, h2, h3
     try:
         start = string.find('<h' + str(num))
+        end = -1
         if start != -1:
-            temp = string[start+3 : start + 500]
+            temp = string[start + 3: start + 500]
             brack = temp.find('>')
             end = temp.find('</h' + str(num) + '>')
+        if (start == -1) or (end == -1):
+            return ''
     except AttributeError:
         return ''
-    if (start == -1) or (end == -1):
-        return ''
-    return delete_special_symbols(temp[brack + 1 : end])
+    return delete_special_symbols(temp[brack + 1:end])
+
 
 def clear_brackets(string):
     if type(string) is not str:
@@ -97,6 +103,7 @@ def clear_brackets(string):
     if not is_bracket_exists:
         return string
 
+
 def sum_headers(string):
     result = ''
     h1 = get_title_h(string, 1)
@@ -109,7 +116,8 @@ def sum_headers(string):
     if not h3.isdigit():
         result += h3
     return result
-    
+
+
 def form_cloud_of_words(string):
     string = str(string)
     if type(string) is not str:
@@ -119,25 +127,30 @@ def form_cloud_of_words(string):
     cloud += header
     return clear_brackets(cloud.lower())
 
+
 def is_tel(string): #add existence of tel
     if string.find("tel:") != -1:
         return 1
     return 0
+
 
 def is_address(string): #add existence of address
     if string.find("address") != -1:
         return 1
     return 0
 
+
 def is_inputbox(string): #add existence of Input type
     if string.find("input type:") != -1:
         return 1
     return 0
 
+
 def is_ads(string): #add existence of ad blocks by keyword "adsby"
     if string.find("adsby") != -1:
         return 1
     return 0
+
 
 def get_sc(string): #added count of word "search" / lenght of document
     mlist = list(find_all('search', string))

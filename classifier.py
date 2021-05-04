@@ -1,13 +1,10 @@
-import numpy as np 
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
-from sklearn.model_selection import train_test_split, cross_val_score
-from statistics import mean
+from sklearn.model_selection import train_test_split
 from sklearn import metrics
-import itertools
-from scipy.sparse import csr_matrix, hstack
+from scipy.sparse import hstack
 
 
 def train_and_predict(dftrained, dfpred):
