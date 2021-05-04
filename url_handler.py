@@ -1,3 +1,4 @@
+from urllib.parse import unquote
 from req import parse, get_main_page_url, specify_scheme, strip_url_beginning
 from preparation import form_query_to_model
 import pandas as pd
@@ -17,10 +18,9 @@ def try_parse_url_variants(url):
     return content
 
 
-def handle_url(url):
+def handle_urls(url_list):
     df_trained = pd.read_csv('train_server.csv')
     cols = ['description', 'tel', 'address', 'ftl', 'sc', 'ads', 'cart', 'sign', 'login', 'ar2k', 'ln20k', 'cloud', 'target']
-    url_list = url.split()
     parsed_list = []
     is_df_created = False
     unparsed_list = []
