@@ -1,4 +1,3 @@
-from urllib.parse import unquote
 from req import parse, get_main_page_url, specify_scheme, strip_url_beginning
 from preparation import form_query_to_model
 import pandas as pd

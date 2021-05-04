@@ -1,5 +1,6 @@
+from urllib.parse import quote
 import requests
-from service import find_all, get_string_after_key, delete_special_symbols
+from service import get_string_after_key, delete_special_symbols
 
 
 MAX_ALEXA_RANK = 20000
@@ -61,7 +62,7 @@ def get_alexa_rank(string):
 
 
 def parse_and_get_ar(url):
-    content = str(parse('https://www.shift4shop.com/lp/alexa-rank/?url=' + url + '&button='))
+    content = str(parse('https://www.shift4shop.com/lp/alexa-rank/?url=' + quote(url) + '&button='))
     if len(content) == 3:
         return MAX_ALEXA_RANK
     return get_alexa_rank(delete_special_symbols(content))
@@ -74,7 +75,7 @@ def is_ar_significant(alexa_rank):
 
 
 def get_len_parsed_aboutus(url):
-    return len(str(parse('https://aboutus.com/' + url)))
+    return len(str(parse('https://aboutus.com/' + quote(url))))
 
 
 def is_au_len_significant(length):
